@@ -18,8 +18,6 @@ export class HttpRequestInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
     this.loadingService.setLoading(true, request.url);
-    console.log(next.handle(request));
-    
     return next.handle(request)
       .pipe(catchError((err) => {
         this.loadingService.setLoading(false, request.url);
@@ -28,7 +26,6 @@ export class HttpRequestInterceptor implements HttpInterceptor {
       }))
       .pipe(evt => {
         if (evt instanceof HttpResponse) {
-          console.log("Finish?");
           
           this.loadingService.setLoading(false, request.url);
         }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PostListInterface } from 'src/app/model/post.model';
+import { CommentListInterface, PostListInterface } from 'src/app/model/post.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +25,12 @@ export class PostsService{
     return this.httpClient.get<PostListInterface[]>(this.baseURL+'/posts');
   }
 
-  getPostsByID(id: number): Observable<any> {
-    return this.httpClient.get<any>(this.baseURL+`/posts/${id}`)
+  getPostsByID(id: number): Observable<PostListInterface> {
+    return this.httpClient.get<PostListInterface>(this.baseURL+`/posts/${id}`)
+  }
+
+  getCommentByID(id: number): Observable<CommentListInterface[]> {
+    return this.httpClient.get<CommentListInterface[]>(this.baseURL+`/comments?postId=${id}`)
   }
 
 }

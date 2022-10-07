@@ -14,7 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 // import { MatDialogModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSnackBarModule, 
 //          MatSortModule, MatTableModule, MatSelectModule, MatIconModule, MatCardModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -29,6 +29,7 @@ import { FormsModule } from '@angular/forms';
     MatDialogModule,
     MatProgressSpinnerModule,
     FormsModule,
+    ReactiveFormsModule,
     MatSelectModule,
     MatIconModule,
     MatCardModule,
@@ -44,6 +45,7 @@ import { FormsModule } from '@angular/forms';
     MatDialogModule,
     MatProgressSpinnerModule,
     FormsModule,
+    ReactiveFormsModule,
     MatSelectModule,
     MatIconModule,
     MatCardModule,

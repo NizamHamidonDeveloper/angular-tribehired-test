@@ -1,36 +1,4 @@
 <div *ngIf="postDetail$ | async as obs; else loading">
-
-    <!-- <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-10 col-md-10 col-sm-6">
-                        <h3 class="card-title">{{(postDetail$ | async)?.title}}</h3>
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-6">
-                        <button class="button" (click)="back()">Back</button>
-                    </div>
-                </div>
-               
-                <div class="column">
-                    <div class="col-lg-12 col-md-12 col-sm-6">
-                        <div class="white-box text-center"><img src="{{(postDetail$ | async)?.image}}" class="img-responsive"></div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-6">
-                        <h4 class="box-title mt-5">Product description</h4>
-                        <p>{{(postDetail$ | async)?.description}}</p>
-                        <h2 class="mt-5">
-                            RM {{(postDetail$ | async)?.price}}
-                        </h2>
-                        <ul class="list-unstyled">
-                            <li><i class="fa fa-check text-success"></i>Rating: {{(postDetail$ | async)?.rating?.rate}}</li>
-                            <li><i class="fa fa-check text-success"></i>Count: {{(postDetail$ | async)?.rating?.count}}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <div style="padding-left: 10%;padding-right: 10%;">
 
         <mat-card >
@@ -39,27 +7,65 @@
             <mat-card-content>	{{(postDetail$ | async)?.body}}</mat-card-content>
             <!-- <img mat-card-image>	Card image. Stretches the image to the container width -->
             <mat-card-actions align="end">	<button mat-raised-button color="accent" (click)="back()">Back</button>
-                <button mat-raised-button color="primary">View Comment</button></mat-card-actions>
+            </mat-card-actions>
+            <!-- <mat-card-footer>	Section anchored to the bottom of the card</mat-card-footer> -->
+        </mat-card>
+      </div>
+</div>
+<br>
+
+<div *ngIf="commentList$ | async as obs; else loadingComment" style="padding-left: 10%;padding-right: 10%;">
+    <mat-card>
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+
+            <mat-form-field class="form-element">
+              <input matInput placeholder="Emailaddress" formControlName="email">
+              <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
+                {{ getErrorEmail() }}
+              </mat-error>
+            </mat-form-field>
+        
+            <br>
+
+            <mat-form-field class="form-element">
+              <input matInput placeholder="Name" formControlName="name">
+              <mat-error *ngIf="!name.valid && name.touched">
+                {{ titleAlert }}
+              </mat-error>
+            </mat-form-field>
+        <br>
+            <mat-form-field class="form-element">
+              <textarea matInput placeholder="Body" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" formControlName="body"></textarea>
+              <mat-error *ngIf="!formGroup.controls['body']?.valid && formGroup.controls['body'].touched">
+                Required field
+              </mat-error>
+            </mat-form-field>
+        <br>
+        
+            <div class="form-element">
+              <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Search</button>
+              <br><br>
+              <button mat-raised-button color="secondary" (click)="resetForm()" class="button" [disabled]="!formGroup.valid">Reset</button>
+            </div>
+        
+          </form>
+    </mat-card>
+    <br>
+    <mat-card>
+        <mat-card-title>Total Comment: {{(commentList$ | async)?.length}}</mat-card-title>
+    </mat-card>
+    <div *ngFor="let item of commentList$ | async; let i = index;let last=last">
+        <mat-card style="background-color: aliceblue ;">
+            <mat-card-title>Name: {{item?.name}}</mat-card-title>
+            <mat-card-subtitle>User Email: {{item?.email}}</mat-card-subtitle>
+            <mat-card-content>	{{item?.body}}</mat-card-content>
+            <!-- <img mat-card-image>	Card image. Stretches the image to the container width -->
             <!-- <mat-card-footer>	Section anchored to the bottom of the card</mat-card-footer> -->
             </mat-card>
-        <!-- <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-title>User ID: {{(postDetail$ | async)?.userId}}</mat-card-title>
-            <mat-card-title>Post Title: {{(postDetail$ | async)?.title}}</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>
-                {{(postDetail$ | async)?.body}}
-            </p>
-          </mat-card-content>
-      
-          <mat-card-actions>
-            <button mat-raised-button color="accent" (click)="back()">Back</button>
-            <button mat-raised-button color="primary">Comment</button>
-          </mat-card-actions>
-        </mat-card> -->
-      
+    <br>
+
       </div>
 </div>
 
-<ng-template #loading>Loading...</ng-template>
+<ng-template #loading>Loading Post...</ng-template>
+<ng-template #loadingComment>Loading Comment...</ng-template>

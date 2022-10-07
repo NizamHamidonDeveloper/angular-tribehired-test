@@ -23,8 +23,6 @@ export class AppComponent implements OnInit{
     this.loadingService.loadingSub
       .pipe(delay(0)) 
       .subscribe((loading) => {
-        console.log("loading status",loading);
-        
         this.loading = loading;
       });
   }
