@@ -1,0 +1,53 @@
+@import 'src/scss/_variables.scss';
+
+.product-list {
+  padding-bottom: 2rem;
+  justify-content: center;
+
+  .mat-table {
+    margin-bottom: 0;
+
+    .mat-header-row{
+      background-color: $primary-color;
+    }
+
+    .mat-header-cell {
+      color: $secondary-text-color;
+      padding-right: 2rem;
+    }
+
+    .mat-cell {
+      vertical-align: middle;
+    }
+
+    .mat-row {
+      border-left: 1px solid #dee2e6;
+      border-right: 1px solid #dee2e6;
+    }
+
+    ::ng-deep {
+      .mat-sort-header-arrow {
+        color: $secondary-text-color;
+      }
+      tbody {
+        border: none;
+      }
+    }
+  }
+
+  &__btn {
+    background: none;
+    border: none;
+    color: $primary-color;
+    cursor: pointer;
+  }
+
+  &__btn:hover, &__btn:focus  {
+    text-decoration: underline;
+  }
+
+  .button {
+    background-color: $primary-color;
+    color: $secondary-text-color;
+}
+}
