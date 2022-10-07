@@ -1,6 +1,8 @@
 <div *ngIf="postDetail$ | async as obs; else loading">
     <div style="padding-left: 10%;padding-right: 10%;">
-
+        <mat-card>
+            <mat-card-title>Post Detail</mat-card-title>
+        </mat-card>
         <mat-card >
             <mat-card-title>Title: {{(postDetail$ | async)?.title}}</mat-card-title>
             <mat-card-subtitle>User ID: {{(postDetail$ | async)?.id}}</mat-card-subtitle>
