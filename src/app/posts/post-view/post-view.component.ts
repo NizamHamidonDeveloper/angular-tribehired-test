@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, Subject, Observable, of } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup,  FormControl, Validators } from '@angular/forms
   templateUrl: './post-view.component.html',
   styleUrls: ['./post-view.component.scss']
 })
-export class PostViewComponent implements OnInit {
+export class PostViewComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   idSubscription!: Subscription;
   id!: number;
@@ -94,5 +94,9 @@ export class PostViewComponent implements OnInit {
       this.formGroup.get('name')?.updateValueAndValidity();
         this.formGroup.get('body')?.setValue('');
         this.formGroup.get('body')?.updateValueAndValidity();
+  }
+
+  ngOnDestroy(): void {
+    
   }
 }

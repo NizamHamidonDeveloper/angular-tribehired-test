@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
@@ -15,7 +15,7 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './posts-list.component.html',
   styleUrls: ['./posts-list.component.scss']
 })
-export class PostsListComponent implements OnInit, AfterViewInit {
+export class PostsListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
@@ -121,6 +121,11 @@ export class PostsListComponent implements OnInit, AfterViewInit {
 
   compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
 }
