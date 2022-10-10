@@ -18,7 +18,7 @@ import { MatPaginator } from '@angular/material/paginator';
 export class PostsListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
-  private destroy$: Subject<boolean> = new Subject<boolean>();
+  destroy$: Subject<boolean> = new Subject<boolean>();
   dataSource: MatTableDataSource<PostListInterface> = new MatTableDataSource();
   displayedColumns: string[ ] = ['userId','id', 'title', 'viewDetails'];
   postsList: PostListInterface[] = [];
@@ -124,7 +124,7 @@ export class PostsListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
+    this.destroy$.next(false);
     this.destroy$.complete();
   }
 

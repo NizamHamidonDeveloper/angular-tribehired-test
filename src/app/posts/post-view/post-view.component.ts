@@ -87,7 +87,7 @@ export class PostViewComponent implements OnInit, OnDestroy {
   }
 
   resetForm() {
-    this.commentList$ = this.postsService.getCommentByID(this.id);
+    this.getCommentListByID(this.id);
     this.formGroup.get('email')?.setValue('');
     this.formGroup.get('email')?.updateValueAndValidity();
       this.formGroup.get('name')?.setValue('');
