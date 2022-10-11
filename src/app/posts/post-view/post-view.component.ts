@@ -79,20 +79,22 @@ export class PostViewComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(post: any) {
-    console.log(post);
-
-    this.commentList$ = this.postsService.getCommentByID(this.id).pipe(
-      map(data => data.filter(p => p.email === post.email || p.name === post.name || p.body === post.body))
+    this.commentList$ = this.postsService.getCommentByID(this.id)
+    .pipe(
+      map(data => data.filter(p => p.email == post.email || p.name == post.name || p.body == post.body))
       );
   }
 
   resetForm() {
     this.getCommentListByID(this.id);
     this.formGroup.get('email')?.setValue('');
+    this.formGroup.get('email')?.clearValidators();
     this.formGroup.get('email')?.updateValueAndValidity();
       this.formGroup.get('name')?.setValue('');
+      this.formGroup.get('name')?.clearValidators();
       this.formGroup.get('name')?.updateValueAndValidity();
         this.formGroup.get('body')?.setValue('');
+        this.formGroup.get('body')?.clearValidators();
         this.formGroup.get('body')?.updateValueAndValidity();
   }
 

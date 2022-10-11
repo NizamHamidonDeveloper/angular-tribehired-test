@@ -1,4 +1,5 @@
 import {
+  HttpErrorResponse,
   HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -19,18 +20,22 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
     this.loadingService.setLoading(true, request.url);
     return next.handle(request)
-      .pipe(catchError((err) => {
-        this.loadingService.setLoading(false, request.url);
-        this.openSnackBar();
-        return err;
-      }))
-      .pipe(evt => {
-        if (evt instanceof HttpResponse) {
-          
+    .pipe(
+        map(res => {
           this.loadingService.setLoading(false, request.url);
-        }
-        return evt;
-      });
+            return res
+        }),
+        catchError((error) => {
+            if (error.error instanceof HttpResponse) {
+              this.loadingService.setLoading(false, request.url);
+              this.openSnackBar();
+            } else {
+              this.loadingService.setLoading(false, request.url);
+              this.openSnackBar();
+            }
+            return error;
+        })
+    )
   }
 
   // intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
