@@ -81,7 +81,7 @@ export class PostViewComponent implements OnInit, OnDestroy {
   onSubmit(post: any) {
     this.commentList$ = this.postsService.getCommentByID(this.id)
     .pipe(
-      map(data => data.filter(p => p.email == post.email || p.name == post.name || p.body == post.body))
+      map(data => data.filter(p => p.email.toString().toLowerCase() == post.email.toString().toLowerCase() || p.name == post.name || p.body == post.body))
       );
   }
 

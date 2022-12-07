@@ -22,6 +22,7 @@ export class PostsListComponent implements OnInit, AfterViewInit, OnDestroy {
   dataSource: MatTableDataSource<PostListInterface> = new MatTableDataSource();
   displayedColumns: string[ ] = ['userId','id', 'title', 'viewDetails'];
   postsList: PostListInterface[] = [];
+  // postsList$!: Observable<Array<PostListInterface>>;
   postsList$!: Observable<Array<PostListInterface>>;
   isLoading: boolean = false;
 
@@ -76,6 +77,7 @@ export class PostsListComponent implements OnInit, AfterViewInit, OnDestroy {
     //   },
     //   () => this.isLoading = false);
 
+    this.postsList$ = this.postsService.getPostsList() 
       this.postsService.getPostsList() 
       .pipe(
         takeUntil(this.destroy$)).subscribe({
